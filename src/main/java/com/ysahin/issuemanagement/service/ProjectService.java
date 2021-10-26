@@ -1,5 +1,6 @@
 package com.ysahin.issuemanagement.service;
 
+import com.ysahin.issuemanagement.dto.ProjectDto;
 import com.ysahin.issuemanagement.entity.Issue;
 import com.ysahin.issuemanagement.entity.Project;
 import org.springframework.data.domain.Page;
@@ -11,7 +12,7 @@ public interface ProjectService {
 
     Project save(Project project);
 
-    Project getById(Long id);
+    ProjectDto getById(Long id);
 
     List<Project> getByProjectCode(String projectCode);
 

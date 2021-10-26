@@ -1,8 +1,11 @@
 package com.ysahin.issuemanagement.service.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ysahin.issuemanagement.dto.ProjectDto;
 import com.ysahin.issuemanagement.entity.Project;
 import com.ysahin.issuemanagement.repository.ProjectRepository;
 import com.ysahin.issuemanagement.service.ProjectService;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -13,9 +16,11 @@ import java.util.List;
 public class ProjectServiceImpl implements ProjectService {
 
     private final ProjectRepository projectRepository;
+    private final ModelMapper modelMapper;
 
-    public ProjectServiceImpl(ProjectRepository projectRepository){
+    public ProjectServiceImpl(ProjectRepository projectRepository,ModelMapper modelMapper){
 
+        this.modelMapper = modelMapper;
         this.projectRepository = projectRepository;
 
     }
@@ -31,8 +36,9 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public Project getById(Long id) {
-        return projectRepository.getById(id);
+    public ProjectDto getById(Long id) {
+        Project p = projectRepository.getOne(id);
+        return modelMapper.map(p,ProjectDto.class);
     }
 
     @Override
